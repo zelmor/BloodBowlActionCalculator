@@ -8,13 +8,21 @@ namespace ActionCalculator
     {
         public Player Build(string playerInput)
         {
-            string? shortName = null;
+            string? starPlayerShortName = null;
             var input = playerInput;
 
             if (StarPlayerRules.ByShortName.TryGetValue(playerInput, out var rule))
             {
-                shortName = playerInput;
-                input = ResolveDwarvenScourge(rule.SkillsInput, vsDwarves: playerInput.EndsWith('*'));
+                starPlayerShortName = playerInput;
+                var starPlayerSkills = rule.SkillsInput.Split(',').ToList();
+
+                if (!playerInput.EndsWith('*'))
+                {
+                    starPlayerSkills = RemoveHatred(starPlayerSkills);
+                }
+
+                starPlayerSkills = ReplaceDwarfenScourgeWithMightyBlow(starPlayerSkills, vsDwarves: playerInput.EndsWith('*'));
+                input = string.Join(',', starPlayerSkills);
             }
 
             var skillsWithValues = GetSkillsWithValues(input);
@@ -25,20 +33,23 @@ namespace ActionCalculator
                 GetSkillValue(skillsWithValues, CalculatorSkills.BreakTackle),
                 GetSkillValue(skillsWithValues, CalculatorSkills.MightyBlow),
                 GetSkillValue(skillsWithValues, CalculatorSkills.DirtyPlayer),
-                shortName);
+                starPlayerShortName);
         }
 
-        private static string ResolveDwarvenScourge(string skillsInput, bool vsDwarves)
+        private static List<string> RemoveHatred(List<string> skills)
         {
-            if (!skillsInput.Contains("DS"))
-                return skillsInput;
+            skills.Remove("H");
+            return skills;
+        }
 
-            var skills = skillsInput.Split(',').ToList();
+        private static List<string> ReplaceDwarfenScourgeWithMightyBlow(List<string> skills, bool vsDwarves)
+        {
+            if (!skills.Contains("DS"))
+                return skills;
+
             skills.Remove("DS");
-            if (!vsDwarves)
-                skills.Remove("H");
             skills.Add(vsDwarves ? "MB2" : "MB1");
-            return string.Join(',', skills);
+            return skills;
         }
 
         private static List<Tuple<CalculatorSkills, int>> GetSkillsWithValues(string playerInput) =>
