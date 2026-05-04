@@ -96,15 +96,28 @@ namespace ActionCalculator.Models
                     .Cast<ShortNameAttribute>()
                     .First().Name);
 
-        public static IReadOnlyDictionary<string, StarPlayerRule> ByShortName { get; } = BuildByShortName();
+        public static IReadOnlyDictionary<string, StarPlayerRule> ByShortName(Season season) => BuildByShortName(season);
 
-        private static Dictionary<string, StarPlayerRule> BuildByShortName() => 
-            All.ToDictionary(
+        private static Dictionary<string, StarPlayerRule> BuildByShortName(Season season)
+        {
+            Dictionary<string, StarPlayerRule> dictionary = All.ToDictionary(
                 r => typeof(StarPlayer)
                     .GetField(r.StarPlayer.ToString())!
                     .GetCustomAttributes(typeof(ShortNameAttribute), false)
                     .Cast<ShortNameAttribute>()
                     .First().Name,
                 StringComparer.OrdinalIgnoreCase);
+
+            if (season == Season.Season2)
+            {
+                var varagRule = dictionary["Varag"];
+                dictionary["Varag"] = varagRule with
+                {
+                    SkillsInput = varagRule.SkillsInput.Replace("KS", "CR")
+                };
+            }
+
+            return dictionary;
+        }
     }
 }

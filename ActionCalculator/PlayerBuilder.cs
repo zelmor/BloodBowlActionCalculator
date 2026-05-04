@@ -11,7 +11,7 @@ namespace ActionCalculator
             string? starPlayerShortName = null;
             var input = playerInput;
 
-            if (StarPlayerRules.ByShortName.TryGetValue(playerInput.Replace("*", ""), out var rule))
+            if (StarPlayerRules.ByShortName(context.Season).TryGetValue(playerInput.Replace("*", ""), out var rule))
             {
                 starPlayerShortName = playerInput;
                 var starPlayerSkills = rule.SkillsInput.Split(',').ToList();
@@ -22,8 +22,7 @@ namespace ActionCalculator
                     starPlayerSkills = RemoveHatred(starPlayerSkills);
                 }
 
-                starPlayerSkills = ReplaceDwarfenScourgeWithMightyBlow(starPlayerSkills, vsDwarves: hasHatred);
-                starPlayerSkills = ReplaceKrumpAndSmashWithCrushingBlow(starPlayerSkills, inSeason2: context.Season == Season.Season2);
+                starPlayerSkills = ReplaceDwarfenScourgeWithMightyBlow(starPlayerSkills, hasHatred);
                 input = string.Join(',', starPlayerSkills);
             }
 
@@ -41,16 +40,6 @@ namespace ActionCalculator
         private static List<string> RemoveHatred(List<string> skills)
         {
             skills.Remove("H");
-            return skills;
-        }
-
-        private static List<string> ReplaceKrumpAndSmashWithCrushingBlow(List<string> skills, bool inSeason2)
-        {
-            if (!skills.Contains("KS") || !inSeason2)
-                return skills;
-
-            skills.Remove("KS");
-            skills.Add("CR");
             return skills;
         }
 
