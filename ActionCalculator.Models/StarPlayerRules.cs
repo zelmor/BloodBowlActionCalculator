@@ -98,20 +98,13 @@ namespace ActionCalculator.Models
 
         public static IReadOnlyDictionary<string, StarPlayerRule> ByShortName { get; } = BuildByShortName();
 
-        private static Dictionary<string, StarPlayerRule> BuildByShortName()
-        {
-            var dict = All.ToDictionary(
+        private static Dictionary<string, StarPlayerRule> BuildByShortName() => 
+            All.ToDictionary(
                 r => typeof(StarPlayer)
                     .GetField(r.StarPlayer.ToString())!
                     .GetCustomAttributes(typeof(ShortNameAttribute), false)
                     .Cast<ShortNameAttribute>()
                     .First().Name,
                 StringComparer.OrdinalIgnoreCase);
-
-            var ivan = All.First(r => r.StarPlayer == StarPlayer.IvanTheAnimalDeathshroud);
-            dict["Ivan*"] = ivan;
-
-            return dict;
-        }
     }
 }
