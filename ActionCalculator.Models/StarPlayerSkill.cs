@@ -163,7 +163,7 @@ namespace ActionCalculator.Models
         [Description("Once per Drive at activation start, pick an opponent within 3 squares and roll a D6: on 3+ they're knocked down; on 2 nothing happens; on 1 Thorsson falls over instead. His activation ends immediately after.")]
         BeerBarrelBash,
 
-        [Description("Once per game, when Varag knocks down an opponent with a Block, re-roll the Armour roll.")]
+        [Description("Once per game, when Varag knocks down an opponent with a Block, re-roll the Armour roll. In Season 2, Varag has the skill Crushing Blow.")]
         KrumpAndSmash,
 
         [Description("Once per game, when Wilhelm makes an Injury roll against an opponent, he may re-roll the result.")]

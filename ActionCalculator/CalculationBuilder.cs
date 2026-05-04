@@ -3,7 +3,7 @@ using ActionCalculator.Models;
 
 namespace ActionCalculator
 {
-    public class CalculationBuilder(IPlayerActionsBuilder playerActionsBuilder) : ICalculationBuilder
+    public class CalculationBuilder(IPlayerActionsBuilder playerActionsBuilder, ICalculationContext context) : ICalculationBuilder
     {
         public Calculation Build(string calculationString, int rerolls)
         {
@@ -16,6 +16,7 @@ namespace ActionCalculator
                 season = Season.Season2;
             }
 
+            context.Season = season;
             return new Calculation(playerActionsBuilder.Build(input), rerolls, season);
         }
     }

@@ -4,24 +4,26 @@ using ActionCalculator.Utilities;
 
 namespace ActionCalculator
 {
-    public class PlayerBuilder : IPlayerBuilder
+    public class PlayerBuilder(ICalculationContext context) : IPlayerBuilder
     {
         public Player Build(string playerInput)
         {
             string? starPlayerShortName = null;
             var input = playerInput;
 
-            if (StarPlayerRules.ByShortName.TryGetValue(playerInput, out var rule))
+            if (StarPlayerRules.ByShortName.TryGetValue(playerInput.Replace("*", ""), out var rule))
             {
                 starPlayerShortName = playerInput;
                 var starPlayerSkills = rule.SkillsInput.Split(',').ToList();
 
-                if (!playerInput.EndsWith('*'))
+                bool hasHatred = playerInput.EndsWith('*');
+                if (!hasHatred)
                 {
                     starPlayerSkills = RemoveHatred(starPlayerSkills);
                 }
 
-                starPlayerSkills = ReplaceDwarfenScourgeWithMightyBlow(starPlayerSkills, vsDwarves: playerInput.EndsWith('*'));
+                starPlayerSkills = ReplaceDwarfenScourgeWithMightyBlow(starPlayerSkills, vsDwarves: hasHatred);
+                starPlayerSkills = ReplaceKrumpAndSmashWithCrushingBlow(starPlayerSkills, inSeason2: context.Season == Season.Season2);
                 input = string.Join(',', starPlayerSkills);
             }
 
@@ -39,6 +41,16 @@ namespace ActionCalculator
         private static List<string> RemoveHatred(List<string> skills)
         {
             skills.Remove("H");
+            return skills;
+        }
+
+        private static List<string> ReplaceKrumpAndSmashWithCrushingBlow(List<string> skills, bool inSeason2)
+        {
+            if (!skills.Contains("KS") || !inSeason2)
+                return skills;
+
+            skills.Remove("KS");
+            skills.Add("CR");
             return skills;
         }
 
