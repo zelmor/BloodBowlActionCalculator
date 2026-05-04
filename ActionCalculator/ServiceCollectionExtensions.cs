@@ -53,7 +53,7 @@ namespace ActionCalculator
             services.AddSingleton<HailMaryPassStrategy>();
             services.AddSingleton<HypnogazeStrategy>();
             services.AddSingleton<InjuryStrategy>();
-            services.AddSingleton<InterferenceStrategy>();
+            services.AddSingleton<InterceptionStrategy>();
             services.AddSingleton<LandingStrategy>();
             services.AddSingleton<LeapStrategy>();
             services.AddSingleton<NonRerollableStrategy>();
@@ -83,7 +83,7 @@ namespace ActionCalculator
             services.AddSingleton<HailMaryPassParser>();
             services.AddSingleton<HypnogazeParser>();
             services.AddSingleton<InjuryParser>();
-            services.AddSingleton<InterferenceParser>();
+            services.AddSingleton<InterceptionParser>();
             services.AddSingleton<LandingParser>();
             services.AddSingleton<LeapParser>();
             services.AddSingleton<NonRerollableParser>();

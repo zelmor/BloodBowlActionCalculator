@@ -4,7 +4,7 @@ using ActionCalculator.Models;
 
 namespace ActionCalculator.Strategies.BallHandling
 {
-    public class InterferenceStrategy(ICalculator calculator, ID6 d6) : IActionStrategy
+    public class InterceptionStrategy(ICalculator calculator, ID6 d6) : IActionStrategy
     {
         public void Execute(decimal p, int r, int i, PlayerAction playerAction, CalculatorSkills usedSkills, bool inaccuratePass = false)
         {

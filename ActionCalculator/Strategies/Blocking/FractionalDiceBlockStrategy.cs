@@ -21,7 +21,7 @@ namespace ActionCalculator.Strategies.Blocking
         private bool _useBrawlerAndPro;
         private bool _useSavageBlow;
         private bool _useHatred;
-        private bool _useUnstoppableMomentum;
+        private bool _canRerollOneDie;
         private bool _useWoodlandFury;
         private bool _useLordOfChaos;
         private bool _rerollNonCriticalFailure;
@@ -66,7 +66,7 @@ namespace ActionCalculator.Strategies.Blocking
             _useBrawlerAndPro = _useBrawler && proHelper.UsePro(player, block, r, usedSkills, successOnOneDie * successOnOneDie, success);
             _useSavageBlow = skillsToUse.Contains(CalculatorSkills.SavageBlow);
             _useHatred = skillsToUse.Contains(CalculatorSkills.Hatred);
-            _useUnstoppableMomentum = skillsToUse.Contains(CalculatorSkills.UnstoppableMomentum)
+            _canRerollOneDie = skillsToUse.Contains(CalculatorSkills.UnstoppableMomentum)
                 || skillsToUse.Contains(CalculatorSkills.WorkingInTandem);
             _useWoodlandFury = skillsToUse.Contains(CalculatorSkills.WoodlandFury);
             _useLordOfChaos = skillsToUse.Contains(CalculatorSkills.LordOfChaos);
@@ -125,7 +125,7 @@ namespace ActionCalculator.Strategies.Blocking
                 return;
             }
 
-            if ((_useHatred && roll.Contains(BlockResult.Skull)) || _useUnstoppableMomentum)
+            if ((_useHatred && roll.Contains(BlockResult.Skull)) || _canRerollOneDie)
             {
                 RerollMinDie(roll, r);
                 return;
@@ -216,7 +216,7 @@ namespace ActionCalculator.Strategies.Blocking
                 return;
             }
 
-            if ((_useHatred && roll.Contains(BlockResult.Skull)) || _useUnstoppableMomentum)
+            if ((_useHatred && roll.Contains(BlockResult.Skull)) || _canRerollOneDie)
             {
                 RerollMinDie(roll, r);
                 return;
@@ -309,7 +309,7 @@ namespace ActionCalculator.Strategies.Blocking
                 return;
             }
 
-            if ((_useHatred && roll.Contains(BlockResult.Skull)) || _useUnstoppableMomentum)
+            if ((_useHatred && roll.Contains(BlockResult.Skull)) || _canRerollOneDie)
             {
                 RerollMinDie(roll, r);
                 return;

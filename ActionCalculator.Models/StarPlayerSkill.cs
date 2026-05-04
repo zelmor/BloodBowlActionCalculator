@@ -13,6 +13,9 @@ namespace ActionCalculator.Models
         [Description("Whenever Barik makes a Hail Mary Pass, he may re-roll any Scatter results to determine where the ball lands. Team-mates attempting to catch also gain +1 to the roll.")]
         BlastIt,
 
+        [Description("Once per half, when Bryce makes the Chainsaw Attack Special action as part of a Blitz action, he may add +4 to the Armour roll against an opponent rather +3.")]
+        GhostlyFlames,
+
         [Description("Once per half, Bilerot may use Projectile Vomit as a Special Action. This can be used even if he has already performed a Block this turn.")]
         PutridRegurgitation,
 
@@ -43,7 +46,7 @@ namespace ActionCalculator.Models
         [Description("Once per game at the start of her activation, Estelle picks an opponent within 5 squares and rolls a D6. On a 2+ that player becomes Distracted and cannot be activated during the opponent's next turn.")]
         BalefulHex,
 
-        [Description("No description available.")]
+        [Description("Once per game, when Frank 'n' Stein makes an Injury roll against an opponents a result of a Block action, he may choose to add an additional +1 modifier to the Injury roll. This modifier may be applied after the roll has been made.")]
         BrutalBlock,
 
         [Description("Once per activation, Fungus may re-roll the direction die that determines his Ball & Chain movement.")]

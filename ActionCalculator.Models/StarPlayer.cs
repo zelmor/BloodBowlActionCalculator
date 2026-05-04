@@ -10,6 +10,7 @@ namespace ActionCalculator.Models
         [Description("Bilerot Vomitflesh")]                [ShortName("Bilerot")]     BilerotVomitflesh,
         [Description("Boa Kon'ssstriktr")]                 [ShortName("Boa")]         BoaKonssstriktr,
         [Description("Bomber Dribblesnot")]                [ShortName("Bomber")]      BomberDribblesnot,
+        [Description("Bryce the Slice")]                   [ShortName("Bryce")]       BryceTheSlice,
         [Description("Captain Karina von Riesz")]          [ShortName("Karina")]      CaptainKarinaVonRiesz,
         [Description("Cindy Piewhistle")]                  [ShortName("Cindy")]       CindyPiewhistle,
         [Description("Count Luthor von Drakenborg")]       [ShortName("Luthor")]      CountLuthorVonDrakenborg,

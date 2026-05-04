@@ -10,8 +10,7 @@ namespace ActionCalculator.Strategies
         {
             var player = playerAction.Player;
             var action = playerAction.Action;
-            var modifier = player.CanUseSkill(CalculatorSkills.ASneakyPair, usedSkills) ? 1 : 0;
-            var success = d6.Success(2, action.Roll - modifier);
+            var success = d6.Success(2, action.Roll);
             var failure = 1m - success;
 
             calculator.Resolve(p * success, r, i, usedSkills);

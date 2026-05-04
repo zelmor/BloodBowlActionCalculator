@@ -1,6 +1,6 @@
 ﻿<MudItem>
     <MudPaper>
-        <h5><u>I</u>nterference</h5>
+        <h5><u>I</u>nterception</h5>
         
         @for (var i = 2; i <= 6; i++)
         {
@@ -20,7 +20,7 @@
 
     private void AddAction(int roll)
     {
-        OnAddAction.InvokeAsync(new Models.Actions.Interference(roll));
+        OnAddAction.InvokeAsync(new Models.Actions.Interception(roll));
     }
 
 }

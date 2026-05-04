@@ -38,7 +38,7 @@ namespace ActionCalculator
                 ActionType.Injury => context.PreviousActionType == ActionType.Foul
                     ? serviceProvider.GetService<FoulInjuryStrategy>()
                     : serviceProvider.GetService<InjuryStrategy>(),
-                ActionType.Interference => serviceProvider.GetService<InterferenceStrategy>(),
+                ActionType.Interception => serviceProvider.GetService<InterceptionStrategy>(),
                 ActionType.Landing => serviceProvider.GetService<LandingStrategy>(),
                 ActionType.Leap => serviceProvider.GetService<LeapStrategy>(),
                 ActionType.NonRerollable => serviceProvider.GetService<NonRerollableStrategy>(),

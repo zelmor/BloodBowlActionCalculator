@@ -11,13 +11,10 @@ namespace ActionCalculator.Strategies
         {
             var (lonerSuccess, proSuccess, canUseSkill) = player;
 
-            var consummateProfessionalIsProReroll = context.Season == Season.Season2;
-
             if (!canUseSkill(CalculatorSkills.Pro, usedSkills) &&
-                !(consummateProfessionalIsProReroll && canUseSkill(CalculatorSkills.ConsummateProfessional, usedSkills)) &&
+                !(context.Season == Season.Season2 && canUseSkill(CalculatorSkills.ConsummateProfessional, usedSkills)) &&
                 !canUseSkill(CalculatorSkills.HalflingLuck, usedSkills) &&
-                !canUseSkill(CalculatorSkills.ThinkingMansTroll, usedSkills) &&
-                !canUseSkill(CalculatorSkills.BoundingLeap, usedSkills))
+                !canUseSkill(CalculatorSkills.ThinkingMansTroll, usedSkills))
             {
                 return false;
             }

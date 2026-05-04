@@ -189,7 +189,7 @@ namespace ActionCalculator
 
         private static bool NonCriticalFailureSupported(ActionType? previousActionType) =>
             previousActionType is ActionType.Bribe or ActionType.ArgueTheCall or ActionType.Injury or ActionType.Foul or ActionType.HailMaryPass
-                or ActionType.Pass or ActionType.ThrowTeammate or ActionType.Interference or ActionType.NonRerollable or ActionType.Dauntless;
+                or ActionType.Pass or ActionType.ThrowTeammate or ActionType.Interception or ActionType.NonRerollable or ActionType.Dauntless;
 
         private static bool PlayerSentOff(ActionType? previousActionType, ActionType? actionType) =>
             previousActionType switch

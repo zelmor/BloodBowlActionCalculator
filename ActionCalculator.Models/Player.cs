@@ -25,9 +25,13 @@ namespace ActionCalculator.Models
             BreakTackleValue = breakTackleValue;
             MightyBlowValue = mightyBlowValue;
             DirtyPlayerValue = dirtyPlayerValue;
-            ProSuccess = (skills.Contains(CalculatorSkills.ConsummateProfessional) || skills.Contains(CalculatorSkills.HalflingLuck)) ? 1m : 2m / 3;
+            ProSuccess = HasFreeProSkill(skills) ? 1m : 2m / 3;
         }
 
+        private static bool HasFreeProSkill(CalculatorSkills skills) => 
+            skills.Contains(CalculatorSkills.ConsummateProfessional)
+                || skills.Contains(CalculatorSkills.HalflingLuck)
+                || skills.Contains(CalculatorSkills.ThinkingMansTroll);
 
         public Guid Id { get; }
         public string? ShortName { get; set; }

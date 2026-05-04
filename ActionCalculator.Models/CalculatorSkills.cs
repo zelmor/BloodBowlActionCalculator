@@ -82,9 +82,6 @@ namespace ActionCalculator.Models
         [Description("SB")]
         [HideFromPlayerEditor]
         SavageBlow = 1073741824,
-        [Description("ASP")]
-        [HideFromPlayerEditor]
-        ASneakyPair = 2147483648,
         [Description("UM")]
         [HideFromPlayerEditor]
         UnstoppableMomentum = 4294967296,
@@ -97,9 +94,6 @@ namespace ActionCalculator.Models
         [Description("HL")]
         [HideFromPlayerEditor]
         HalflingLuck = 34359738368,
-        [Description("TC")]
-        [HideFromPlayerEditor]
-        ToxinConnoisseur = 68719476736,
         [Description("TMT")]
         [HideFromPlayerEditor]
         ThinkingMansTroll = 137438953472,
@@ -117,6 +111,9 @@ namespace ActionCalculator.Models
         KrumpAndSmash = 2199023255552,
         [Description("WF")]
         [HideFromPlayerEditor]
-        WoodlandFury = 4398046511104
+        WoodlandFury = 4398046511104,
+        [Description("SPG")]
+        [HideFromPlayerEditor]
+        StrongPassingGame = 8796093022208
     }
 }

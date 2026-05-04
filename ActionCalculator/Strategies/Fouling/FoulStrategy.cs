@@ -10,8 +10,7 @@ namespace ActionCalculator.Strategies.Fouling
         {
             var player = playerAction.Player;
             var canUseSkill = player.CanUseSkill;
-            var sneakyPairModifier = canUseSkill(CalculatorSkills.ASneakyPair, usedSkills) ? 1 : 0;
-            var roll = playerAction.Action.Roll - sneakyPairModifier;
+            var roll = playerAction.Action.Roll;
             var baseSuccess = d6.Success(2, roll);
             var failure = 1 - baseSuccess;
 

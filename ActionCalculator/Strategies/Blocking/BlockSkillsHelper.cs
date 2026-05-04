@@ -1,3 +1,4 @@
+using ActionCalculator.Abstractions;
 using ActionCalculator.Abstractions.Strategies;
 using ActionCalculator.Abstractions.Strategies.Blocking;
 using ActionCalculator.Models;
@@ -5,7 +6,7 @@ using ActionCalculator.Models.Actions;
 
 namespace ActionCalculator.Strategies.Blocking
 {
-    public class BlockSkillsHelper(IProHelper proHelper) : IBlockSkillsHelper
+    public class BlockSkillsHelper(IProHelper proHelper, ICalculationContext context) : IBlockSkillsHelper
     {
         public CalculatorSkills SkillsToUse(Player player, Block block, int r, CalculatorSkills usedSkills, decimal successOnOneDie, decimal success)
         {
@@ -16,7 +17,7 @@ namespace ActionCalculator.Strategies.Blocking
             if (player.CanUseSkill(CalculatorSkills.UnstoppableMomentum, usedSkills)) result |= CalculatorSkills.UnstoppableMomentum;
             if (player.CanUseSkill(CalculatorSkills.WorkingInTandem, usedSkills)) result |= CalculatorSkills.WorkingInTandem;
             if (player.CanUseSkill(CalculatorSkills.WoodlandFury, usedSkills)) result |= CalculatorSkills.WoodlandFury;
-            if (player.CanUseSkill(CalculatorSkills.LordOfChaos, usedSkills)) result |= CalculatorSkills.LordOfChaos;
+            if (player.CanUseSkill(CalculatorSkills.LordOfChaos, usedSkills) && context.Season == Season.Season3) result |= CalculatorSkills.LordOfChaos;
             if (proHelper.UsePro(player, block, r, usedSkills, successOnOneDie, success)) result |= CalculatorSkills.Pro;
             return result;
         }

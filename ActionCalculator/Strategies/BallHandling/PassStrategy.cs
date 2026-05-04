@@ -26,13 +26,24 @@ namespace ActionCalculator.Strategies.BallHandling
 
             calculator.Resolve(p * success, r, i, usedSkills);
 
+            if (canUseSkill(CalculatorSkills.StrongPassingGame, usedSkills))
+            {
+                var spgSuccesses = (10m - modifiedRoll).ThisOrMinimum(1).ThisOrMaximum(5);
+                var spgExtraSuccess = spgSuccesses - successes;
+                if (spgExtraSuccess > 0)
+                {
+                    calculator.Resolve(p * (spgExtraSuccess / 6), r, i, usedSkills | CalculatorSkills.StrongPassingGame);
+                    inaccuratePasses -= spgExtraSuccess;
+                }
+            }
+
             var inaccuratePass = inaccuratePasses / 6;
             var rerollInaccuratePass = pass.RerollInaccuratePass;
             var accuratePassAfterFailure = (failure + (rerollInaccuratePass ? inaccuratePass : 0)) * success;
             var inaccuratePassAfterFailure = (failure + (rerollInaccuratePass ? inaccuratePass : 0)) * inaccuratePass;
             var inaccuratePassWithoutReroll = rerollInaccuratePass ? 0m : inaccuratePass;
 
-            if (context.Season != Season.Season3 && canUseSkill(CalculatorSkills.TheBallista, usedSkills))
+            if (context.Season == Season.Season2 && canUseSkill(CalculatorSkills.TheBallista, usedSkills))
             {
                 ExecuteReroll(p, r, i, usedSkills, accuratePassAfterFailure, inaccuratePassWithoutReroll + inaccuratePassAfterFailure);
                 return;

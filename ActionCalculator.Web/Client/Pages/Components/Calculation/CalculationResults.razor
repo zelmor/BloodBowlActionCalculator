@@ -93,5 +93,5 @@
         .Any(x => x.pa.Action.ActionType == ActionType.Pass
             && (x.i == Calculation.PlayerActions.Count - 1
                 || (Calculation.PlayerActions[x.i + 1].Action.ActionType != ActionType.Catch
-                    && Calculation.PlayerActions[x.i + 1].Action.ActionType != ActionType.Interference)));
+                    && Calculation.PlayerActions[x.i + 1].Action.ActionType != ActionType.Interception)));
 }

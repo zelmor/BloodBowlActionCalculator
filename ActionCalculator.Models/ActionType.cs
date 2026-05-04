@@ -13,7 +13,7 @@
         Foul = 'F',
         Landing = 'G',
         ThrowTeammate = 'H',
-        Interference = 'I',
+        Interception = 'I',
         Injury = 'J',
         ArmourBreak = 'K',
         Dauntless = 'L',

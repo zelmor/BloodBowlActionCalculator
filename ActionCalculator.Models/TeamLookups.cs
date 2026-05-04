@@ -3,8 +3,7 @@ namespace ActionCalculator.Models
     public static class TeamLookups
     {
         private static readonly IReadOnlyList<(Team Team, StarPlayer StarPlayer)> _entries =
-            new (Team, StarPlayer)[]
-            {
+            [
                 // Amazon
                 (Team.Amazon, StarPlayer.AkhorneTheSquirrel),
                 (Team.Amazon, StarPlayer.AnqiPanqi),
@@ -443,7 +442,7 @@ namespace ActionCalculator.Models
                 (Team.WoodElf, StarPlayer.ValenSwift),
                 (Team.WoodElf, StarPlayer.WillowRosebark),
                 (Team.WoodElf, StarPlayer.ZolcathTheZoat),
-            };
+            ];
 
         private static readonly IReadOnlyDictionary<Team, IReadOnlyList<StarPlayer>> _byTeam =
             _entries

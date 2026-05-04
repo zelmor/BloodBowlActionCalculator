@@ -19,12 +19,6 @@ namespace ActionCalculator.Strategies
 
             calculator.Resolve(p * success, r, i, usedSkills);
 
-            if (player.CanUseSkill(CalculatorSkills.ToxinConnoisseur, usedSkills) && context.PreviousActionType == ActionType.Stab)
-            {
-                var successWithTC = d6.Success(2, action.Roll - modifier - 1);
-                calculator.Resolve(p * (successWithTC - success), r, i, usedSkills | CalculatorSkills.ToxinConnoisseur);
-            }
-
             if (player.CanUseSkill(CalculatorSkills.SavageMauling, usedSkills))
             {
                 calculator.Resolve(p * (1 - success) * success, r, i, usedSkills);

@@ -23,7 +23,7 @@ namespace ActionCalculator
                 ActionType.NonRerollable => !previousDauntless,
                 ActionType.ThrowTeammate => !previousDauntless,
                 ActionType.Dauntless => !previousDauntless,
-                ActionType.Interference => !previousDauntless && previousActionType is ActionType.Pass,
+                ActionType.Interception => !previousDauntless && previousActionType is ActionType.Pass,
                 ActionType.Leap => !previousDauntless,
                 ActionType.Tentacles => !previousDauntless,
                 ActionType.Shadowing => !previousDauntless,
