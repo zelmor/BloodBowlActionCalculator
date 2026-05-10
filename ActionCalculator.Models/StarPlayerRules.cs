@@ -25,12 +25,12 @@ namespace ActionCalculator.Models
             new(StarPlayer.GlartSmashrip,               StarPlayerSkill.FrenziedRush,           ["Block", "Claws", "Grab", "Juggernaut", "Loner (4+)", "Stand Firm"],                                                                   "CL,L4"),
             new(StarPlayer.GlorielSummerbloom,          StarPlayerSkill.ShotToNothing,          ["Accurate", "Dodge", "Loner (3+)", "Pass", "Sidestep", "Sure Hands"],                                                                  "D,SH,PA,L3"),
             new(StarPlayer.GlotlStop,                   StarPlayerSkill.PrimalSavagery,         ["Animal Savagery", "Frenzy", "Loner (4+)", "Mighty Blow", "Prehensile Tail", "Stand Firm", "Thick Skull"],                             "MB,L4"),
-            new(StarPlayer.Grak,                        StarPlayerSkill.IllCarryYou,            ["Bone Head", "Kick Team-mate", "Loner (4+)", "Mighty Blow", "Thick Skull"],                                                            "MB,L4"),
+            new(StarPlayer.Grak,                        StarPlayerSkill.IllCarryYou,            ["Bone Head", "Kick Team-mate", "Loner (4+)", "Mighty Blow", "Thick Skull"],                                                            "MB,L4,BT,D"),
             new(StarPlayer.GrashnakBlackhoof,           StarPlayerSkill.GoredByTheBull,         ["Frenzy", "Horns", "Loner (4+)", "Mighty Blow", "Thick Skull", "Unchannelled Fury"],                                                   "MB,L4"),
             new(StarPlayer.GretchenWachter,             StarPlayerSkill.Incorporeal,            ["Disturbing Presence", "Dodge", "Foul Appearance", "Jump Up", "Loner (4+)", "No Ball", "Regeneration", "Shadowing", "Sidestep"],       "D,L4"),
-            new(StarPlayer.GrimIronjaw,                 StarPlayerSkill.Slayer,                 ["Block", "Dauntless", "Frenzy", "Hatred (Big Guy)", "Loner (4+)", "Multiple Block", "Thick Skull"],                                    "L4,S"),
+            new(StarPlayer.GrimIronjaw,                 StarPlayerSkill.Slayer,                 ["Block", "Dauntless", "Frenzy", "Hatred (Big Guy)", "Loner (4+)", "Multiple Block", "Thick Skull"],                                    "L4,S,H"),
             new(StarPlayer.GriffOberwald,               StarPlayerSkill.ConsummateProfessional, ["Block", "Dodge", "Fend", "Loner (3+)", "Sprint", "Sure Feet"],                                                                        "D,SF,L3,CP"),
-            new(StarPlayer.GrombrindaTheWhiteDwarf,     StarPlayerSkill.WisdomOfTheWhiteDwarf,  ["Block", "Break Tackle", "Dauntless", "Loner (4+)", "Mighty Blow", "Stand Firm", "Sure Feet", "Thick Skull"],                          "BT,SF,MB,L4"),
+            new(StarPlayer.GrombrindalTheWhiteDwarf,    StarPlayerSkill.WisdomOfTheWhiteDwarf,  ["Block", "Break Tackle", "Dauntless", "Loner (4+)", "Mighty Blow", "Stand Firm", "Sure Feet", "Thick Skull"],                          "BT,SF,MB,L4"),
             new(StarPlayer.GufflePusmaw,                StarPlayerSkill.QuickBite,              ["Foul Appearance", "Loner (4+)", "Monstrous Mouth", "Nerves Of Steel", "On The Ball", "Plague Ridden"],                                "L4"),
             new(StarPlayer.HtharkTheUnstoppable,        StarPlayerSkill.UnstoppableMomentum,    ["Block", "Break Tackle", "Defensive", "Juggernaut", "Loner (4+)", "Sprint", "Sure Feet", "Thick Skull", "Unsteady"],                   "BT,SF,L4,UM"),
             new(StarPlayer.HakflemSkuttlespike,         StarPlayerSkill.Treacherous,            ["Dodge", "Extra Arms", "Loner (4+)", "Prehensile Tail", "Two Heads"],                                                                  "D,L4"),
@@ -71,7 +71,7 @@ namespace ActionCalculator.Models
             new(StarPlayer.WillowRosebark,              StarPlayerSkill.WoodlandFury,           ["Dauntless", "Loner (4+)", "Sidestep", "Thick Skull"],                                                                                 "L4,WF"),
             new(StarPlayer.WithergraspDoubledrool,      StarPlayerSkill.WatchOut,               ["Foul Appearance", "Loner (4+)", "Prehensile Tail", "Tackle", "Tentacles", "Two Heads", "Wrestle"],                                    "L4"),
             new(StarPlayer.ZolcathTheZoat,              StarPlayerSkill.ExcuseMeAreYouAZoat,    ["Disturbing Presence", "Juggernaut", "Loner (4+)", "Mighty Blow", "Prehensile Tail", "Regeneration", "Sure Feet"],                     "SF,MB,L4"),
-            new(StarPlayer.ZzhargMadeye,                StarPlayerSkill.BlastinSolvesEverything,["Cannoneer", "Hail Mary Pass", "Loner (4+)", "Nerves of Steel", "Secret Weapon", "Thick Skull"],                                       "L4"),
+            new(StarPlayer.ZzhargMadeye,                StarPlayerSkill.BlastinSolvesEverything,["Cannoneer", "Hail Mary Pass", "Loner (4+)", "Nerves of Steel", "Secret Weapon", "Sure Hands", "Thick Skull"],                         "L4,SH"),
         ];
 
         public static IReadOnlyDictionary<StarPlayer, StarPlayerRule> ByStarPlayer { get; } =
@@ -110,14 +110,30 @@ namespace ActionCalculator.Models
 
             if (season == Season.Season2)
             {
-                var varagRule = dictionary["Varag"];
-                dictionary["Varag"] = varagRule with
-                {
-                    SkillsInput = varagRule.SkillsInput.Replace("KS", "CR")
-                };
+                ReplaceSkillsInput("Varag", "KS", "CR");
+                ReplaceSkillsInput("Puggy", "L3", "L4");
+                ReplaceSkillsInput("Morg", ",H", ""); 
+                ReplaceSkillsInput("Borak", "L3,DP1", "L4,DP2");
+                ReplaceSkillsInput("Deeproot", "MB", "MB2");
+                ReplaceSkillsInput("Grom", "BT,SF,", "");
+                ReplaceSkillsInput("Jordell", ",SFO", "");
+            }
+
+            if (season == Season.Season3) 
+            {
+                ReplaceSkillsInput("Zzharg", ",SH", "");
             }
 
             return dictionary;
+
+            void ReplaceSkillsInput(string player, string skillsInput, string newSkillsInput)
+            {
+                var rule = dictionary[player];
+                dictionary[player] = rule with
+                {
+                    SkillsInput = rule.SkillsInput.Replace(skillsInput, newSkillsInput)
+                };
+            }
         }
     }
 }

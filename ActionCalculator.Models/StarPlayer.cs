@@ -30,7 +30,7 @@ namespace ActionCalculator.Models
         [Description("Gretchen Wächter")]                  [ShortName("Gretchen")]    GretchenWachter,
         [Description("Grim Ironjaw")]                      [ShortName("Grim")]        GrimIronjaw,
         [Description("Griff Oberwald")]                    [ShortName("Griff")]       GriffOberwald,
-        [Description("Grombrindal, the White Dwarf")]      [ShortName("Grom")]        GrombrindaTheWhiteDwarf,
+        [Description("Grombrindal, the White Dwarf")]      [ShortName("Grom")]        GrombrindalTheWhiteDwarf,
         [Description("Guffle Pusmaw")]                     [ShortName("Guffle")]      GufflePusmaw,
         [Description("H'thark The Unstoppable")]           [ShortName("H'thark")]     HtharkTheUnstoppable,
         [Description("Hakflem Skuttlespike")]              [ShortName("Hakflem")]     HakflemSkuttlespike,
