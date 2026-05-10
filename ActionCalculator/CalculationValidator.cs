@@ -13,7 +13,7 @@ namespace ActionCalculator
                 .Must(x => x.Select(y => y.Action.ActionType).Count(y => y == ActionType.Block) > 1)
                 .When(x => x.PlayerActions.Select(y => y.Action.ActionType).Contains(ActionType.Dauntless));
             RuleFor(x => x.PlayerActions)
-                .Must(x => x.All(pa => pa.Player.ShortName != null || (pa.Player.MightyBlowValue <= 1 && pa.Player.DirtyPlayerValue <= 1)))
+                .Must(x => x.All(pa => pa.Player.Skills.HasFlag(CalculatorSkills.DwarvenScourge) || (pa.Player.MightyBlowValue <= 1 && pa.Player.DirtyPlayerValue <= 1)))
                 .When(x => x.Season == Season.Season3)
                 .WithMessage("In Season 3, Mighty Blow and Dirty Player can only have a +1 modifier");
         }

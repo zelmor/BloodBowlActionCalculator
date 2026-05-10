@@ -11,7 +11,8 @@ namespace ActionCalculator
             string? starPlayerShortName = null;
             var input = playerInput;
 
-            if (StarPlayerRules.ByShortName(context.Season).TryGetValue(playerInput.Replace("*", ""), out var rule))
+            if (StarPlayerRules.ByShortName(context.Season)
+                .TryGetValue(playerInput.Replace("*", "").Replace("^", ""), out var rule))
             {
                 starPlayerShortName = playerInput;
                 var starPlayerSkills = rule.SkillsInput.Split(',').ToList();
@@ -19,7 +20,13 @@ namespace ActionCalculator
                 bool hasHatred = playerInput.EndsWith('*');
                 if (!hasHatred)
                 {
-                    starPlayerSkills = RemoveHatred(starPlayerSkills);
+                    starPlayerSkills = RemoveSkill(starPlayerSkills, "H");
+                }
+
+                bool illCarryYou = playerInput.EndsWith('^');
+                if (!illCarryYou && rule.StarPlayer == StarPlayer.Grak)
+                {
+                    starPlayerSkills = RemoveSkill(RemoveSkill(starPlayerSkills, "BT"), "D");
                 }
 
                 starPlayerSkills = ReplaceDwarfenScourgeWithMightyBlow(starPlayerSkills, hasHatred);
@@ -37,9 +44,16 @@ namespace ActionCalculator
                 starPlayerShortName);
         }
 
-        private static List<string> RemoveHatred(List<string> skills)
+        private List<string> RemoveDodgeAndBreakTackle(List<string> skills)
         {
-            skills.Remove("H");
+            skills.Remove("D");
+            skills.Remove("BT");
+            return skills;
+        }
+
+        private static List<string> RemoveSkill(List<string> skills, string skillToRemove)
+        {
+            skills.Remove(skillToRemove);
             return skills;
         }
 
@@ -48,7 +62,6 @@ namespace ActionCalculator
             if (!skills.Contains("DS"))
                 return skills;
 
-            skills.Remove("DS");
             skills.Add(vsDwarves ? "MB2" : "MB1");
             return skills;
         }
