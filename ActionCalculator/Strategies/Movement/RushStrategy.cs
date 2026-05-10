@@ -1,7 +1,6 @@
 ﻿using ActionCalculator.Abstractions;
 using ActionCalculator.Abstractions.Strategies;
 using ActionCalculator.Models;
-using System.Net.Mail;
 
 namespace ActionCalculator.Strategies.Movement
 {
@@ -37,12 +36,19 @@ namespace ActionCalculator.Strategies.Movement
                 calculator.Resolve(p * failure * (1m - proSuccess) * (1m - pSteadyFooting) * lonerSuccess * pSteadyFooting, r, i, usedSkills | CalculatorSkills.Pro);
                 return;
             }
-        
-            calculator.Resolve(p * failure * lonerSuccess * success, r - 1, i, usedSkills);
-            calculator.Resolve(p * failure * lonerSuccess * failure * pSteadyFooting, r - 1, i, usedSkills);
-            calculator.Resolve(p * failure * lonerSuccess * failure * (1m - pSteadyFooting) * lonerSuccess * pSteadyFooting, r - 2, i, usedSkills);
-            calculator.Resolve(p * failure * (1m - lonerSuccess) * pSteadyFooting, r - 1, i, usedSkills);
-            calculator.Resolve(p * failure * (1m - lonerSuccess) * (1m - pSteadyFooting) * lonerSuccess * pSteadyFooting, r - 2, i, usedSkills);
+
+            if (r == 0)
+            {
+                calculator.Resolve(p * failure * pSteadyFooting, r, i, usedSkills);
+            }
+            else
+            {
+                calculator.Resolve(p * failure * lonerSuccess * success, r - 1, i, usedSkills);
+                calculator.Resolve(p * failure * lonerSuccess * failure * pSteadyFooting, r - 1, i, usedSkills);
+                calculator.Resolve(p * failure * lonerSuccess * failure * (1m - pSteadyFooting) * lonerSuccess * pSteadyFooting, r - 2, i, usedSkills);
+                calculator.Resolve(p * failure * (1m - lonerSuccess) * pSteadyFooting, r - 1, i, usedSkills);
+                calculator.Resolve(p * failure * (1m - lonerSuccess) * (1m - pSteadyFooting) * lonerSuccess * pSteadyFooting, r - 2, i, usedSkills);
+            }
         }
     }
 }

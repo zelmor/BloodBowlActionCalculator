@@ -212,7 +212,7 @@ namespace ActionCalculator.Tests
         [InlineData("R:2D3,K8,J8", 0, 0.23438)]
         [InlineData("SF,SH:U2,R2,R2,R2", 2, 0.84394, 0.89083, 0.89343)]
         //steady footing
-        [InlineData("SFO:R2", 0, 0.83333)]
+        [InlineData("SFO:R2", 0, 0.86111)]
         [InlineData("SFO:R2", 1, 0.83333, 0.97685)]
         [InlineData("SFO:D3", 0, 0.66667)]
         [InlineData("SFO:D3", 1, 0.66667, 0.90741)]
