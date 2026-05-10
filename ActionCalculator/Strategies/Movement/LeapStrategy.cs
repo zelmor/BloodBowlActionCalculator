@@ -63,12 +63,20 @@ namespace ActionCalculator.Strategies.Movement
                 return;
             }
 
-            calculator.Resolve(p * lonerSuccess * failure * success, r - 1, i, usedSkills);
-            calculator.Resolve(p * lonerSuccess * failureWithDivingTackle * success, r - 1, i, usedSkills | CalculatorSkills.DivingTackle);
-            ResolveSteadyFooting(p * lonerSuccess * failure * (1m - success), r - 1, i, usedSkills, pSteadyFooting, lonerSuccess);
-            ResolveSteadyFooting(p * lonerSuccess * failureWithDivingTackle * (1m - success), r - 1, i, usedSkills | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
-            ResolveSteadyFooting(p * (1m - lonerSuccess) * failure, r - 1, i, usedSkills, pSteadyFooting, lonerSuccess);
-            ResolveSteadyFooting(p * (1m - lonerSuccess) * failureWithDivingTackle, r - 1, i, usedSkills | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
+            if (r == 0)
+            {
+                ResolveSteadyFooting(p * failure, r, i, usedSkills, pSteadyFooting, lonerSuccess);
+                ResolveSteadyFooting(p * failureWithDivingTackle, r, i, usedSkills | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
+            }
+            else
+            {
+                calculator.Resolve(p * lonerSuccess * failure * success, r - 1, i, usedSkills);
+                calculator.Resolve(p * lonerSuccess * failureWithDivingTackle * success, r - 1, i, usedSkills | CalculatorSkills.DivingTackle);
+                ResolveSteadyFooting(p * lonerSuccess * failure * (1m - success), r - 1, i, usedSkills, pSteadyFooting, lonerSuccess);
+                ResolveSteadyFooting(p * lonerSuccess * failureWithDivingTackle * (1m - success), r - 1, i, usedSkills | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
+                ResolveSteadyFooting(p * (1m - lonerSuccess) * failure, r - 1, i, usedSkills, pSteadyFooting, lonerSuccess);
+                ResolveSteadyFooting(p * (1m - lonerSuccess) * failureWithDivingTackle, r - 1, i, usedSkills | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
+            }
         }
 
         private void ResolveSteadyFooting(decimal p, int r, int i, CalculatorSkills usedSkills, decimal pSteadyFooting, decimal lonerSuccess)

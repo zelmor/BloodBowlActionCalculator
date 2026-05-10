@@ -214,9 +214,9 @@ namespace ActionCalculator.Tests
         //steady footing
         [InlineData("SFO:R2", 0, 0.86111)]
         [InlineData("SFO:R2", 1, 0.83333, 0.97685)]
-        [InlineData("SFO:D3", 0, 0.66667)]
+        [InlineData("SFO:D3", 0, 0.72222)]
         [InlineData("SFO:D3", 1, 0.66667, 0.90741)]
-        [InlineData("SFO:E3", 0, 0.66667)]
+        [InlineData("SFO:E3", 0, 0.72222)]
         [InlineData("SFO:E3", 1, 0.66667, 0.90741)]
         //hypnogaze
         [InlineData("Y2'[:D2]", 1, 0.97222, 0.99537)]

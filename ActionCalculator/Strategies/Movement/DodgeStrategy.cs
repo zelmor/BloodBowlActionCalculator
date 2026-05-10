@@ -67,9 +67,17 @@ namespace ActionCalculator.Strategies.Movement
                 return;
             }
 
-            DodgeReroll(p * lonerSuccess, r - 1, i, usedSkills, failure, success, successUsingBreakTackle, failureWithDivingTackle, pSteadyFooting, lonerSuccess);
-            ResolveSteadyFooting(p * (1m - lonerSuccess) * failure, r - 1, i, usedSkills, pSteadyFooting, lonerSuccess);
-            ResolveSteadyFooting(p * (1m - lonerSuccess) * failureWithDivingTackle, r - 1, i, usedSkills | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
+            if (r == 0)
+            {
+                ResolveSteadyFooting(p * failure, r, i, usedSkills, pSteadyFooting, lonerSuccess);
+                ResolveSteadyFooting(p * failureWithDivingTackle, r, i, usedSkills | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
+            }
+            else
+            {
+                DodgeReroll(p * lonerSuccess, r - 1, i, usedSkills, failure, success, successUsingBreakTackle, failureWithDivingTackle, pSteadyFooting, lonerSuccess);
+                ResolveSteadyFooting(p * (1m - lonerSuccess) * failure, r - 1, i, usedSkills, pSteadyFooting, lonerSuccess);
+                ResolveSteadyFooting(p * (1m - lonerSuccess) * failureWithDivingTackle, r - 1, i, usedSkills | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
+            }
         }
 
         private void ResolveSteadyFooting(decimal p, int r, int i, CalculatorSkills usedSkills, decimal pSteadyFooting, decimal lonerSuccess)
