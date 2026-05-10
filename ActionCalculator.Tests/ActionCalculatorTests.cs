@@ -211,6 +211,9 @@ namespace ActionCalculator.Tests
         [InlineData("R:2D3,K8", 0, 0.43750)]
         [InlineData("R:2D3,K8,J8", 0, 0.23438)]
         [InlineData("SF,SH:U2,R2,R2,R2", 2, 0.84394, 0.89083, 0.89343)]
+        //steady footing
+        [InlineData("SFO:R2", 0, 0.86111)]
+        [InlineData("SFO:R2", 1, 0.86111, 0.97685)]
         //hypnogaze
         [InlineData("Y2'[:D2]", 1, 0.97222, 0.99537)]
         [InlineData("Y2';{D2}U2", 2, 0.81019, 0.96451, 0.96772)]
@@ -290,6 +293,7 @@ namespace ActionCalculator.Tests
         [InlineData("Ivar:2,2", 2, 0.69444, 0.81019, 0.81501)]
         [InlineData("Jeremiah:D3,P2;C,DC:C2", 1, 0.84019)]
         [InlineData("Jordell:D3,2D2;DC:C2", 1, 0.41152, 0.57156)]
+        [InlineData("Jordell:R2", 1, 0.86111, 0.91898)]
         [InlineData("Josef:2,2", 2, 0.69444, 0.84877, 0.85734)]
         [InlineData("Karla:D3,2D2", 1, 0.49383, 0.60357)]
         [InlineData("Kiroth:2,2", 2, 0.69444, 0.81019, 0.81501)]

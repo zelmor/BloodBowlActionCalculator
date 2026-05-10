@@ -17,6 +17,12 @@ namespace ActionCalculator.Strategies.Movement
 
             calculator.Resolve(p * success, r, i, usedSkills);
 
+            if (canUseSkill(CalculatorSkills.SteadyFooting, usedSkills))
+            {
+                calculator.Resolve(p * failure * (1m / 6), r, i, usedSkills | CalculatorSkills.SteadyFooting);
+                failure *= 5m / 6;
+            }
+
             p *= failure * success;
 
             if (canUseSkill(CalculatorSkills.SureFeet, usedSkills))

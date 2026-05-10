@@ -114,6 +114,8 @@ namespace ActionCalculator.Models
         WoodlandFury = 4398046511104,
         [Description("SPG")]
         [HideFromPlayerEditor]
-        StrongPassingGame = 8796093022208
+        StrongPassingGame = 8796093022208,
+        [Description("SFO")]
+        SteadyFooting = 17592186044416
     }
 }
