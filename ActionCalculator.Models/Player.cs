@@ -86,7 +86,7 @@ namespace ActionCalculator.Models
             return Skills.Contains(CalculatorSkills.Loner) ? (7m - LonerValue) / 6 : 1;
         }
 
-        public string Description()
+        public string Description(Season season = Season.Season3)
         {
             if (Skills == CalculatorSkills.None)
             {
@@ -97,18 +97,18 @@ namespace ActionCalculator.Models
 
             foreach (var skill in Skills.ToEnumerable(CalculatorSkills.None))
             {
-                sb.Append($"{skill.ToString().PascalCaseToSpaced()}{GetSkillValue(skill)}, ");
+                sb.Append($"{skill.ToString().PascalCaseToSpaced()}{GetSkillValue(skill, season)}, ");
             }
 
             return sb.Remove(sb.Length - 2, 2).ToString();
         }
 
-        private string GetSkillValue(CalculatorSkills skill) => skill switch
+        private string GetSkillValue(CalculatorSkills skill, Season season) => skill switch
         {
             CalculatorSkills.Loner => " " + LonerValue + "+",
             CalculatorSkills.BreakTackle => " +" + BreakTackleValue,
-            CalculatorSkills.DirtyPlayer => " +" + DirtyPlayerValue,
-            CalculatorSkills.MightyBlow => " +" + MightyBlowValue,
+            CalculatorSkills.DirtyPlayer => season == Season.Season3 ? "" : " +" + DirtyPlayerValue,
+            CalculatorSkills.MightyBlow => season == Season.Season3 ? "" : " +" + MightyBlowValue,
             _ => ""
         };
     }

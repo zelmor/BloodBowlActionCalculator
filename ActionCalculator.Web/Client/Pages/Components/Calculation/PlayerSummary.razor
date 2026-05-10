@@ -5,7 +5,7 @@
 <MudItem>
     <MudPaper Class="player-summary">
         <h6>Player @(PlayerNumber)</h6>
-        <MudText Class="player-skills">@($"Skills: {Player.Description()}")</MudText>
+        <MudText Class="player-skills">@($"Skills: {Player.Description(CurrentSeason)}")</MudText>
         
         @if (Player.Id != CurrentPlayerId)
         {
@@ -16,17 +16,23 @@
 
 @code
 {
+    [CascadingParameter(Name = "Season")]
+    public string Season { get; set; } = "Season 3";
+
     [Parameter]
     public Player Player { get; set; } = null!;
 
     [Parameter]
-    public int PlayerNumber { get; set; }  
-    
+    public int PlayerNumber { get; set; }
+
     [Parameter]
-    public Guid CurrentPlayerId { get; set; }  
+    public Guid CurrentPlayerId { get; set; }
 
     [Parameter]
     public EventCallback<Guid> OnEditPlayer { get; set; }
+
+    private ActionCalculator.Models.Season CurrentSeason =>
+        Season == "Season 2" ? ActionCalculator.Models.Season.Season2 : ActionCalculator.Models.Season.Season3;
 
     private void EditPlayer()
     {
