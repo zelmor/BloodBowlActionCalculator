@@ -4,6 +4,12 @@ A probability calculator for Blood Bowl 2020. Players chain actions (dodges, blo
 
 ---
 
+## Working conventions
+
+- **Never use git worktrees.** Always work directly in this repository (`C:\Users\dphea\source\repos\BloodBowlActionCalculator`).
+
+---
+
 ## Commands
 
 ```bash
