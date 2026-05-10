@@ -1,4 +1,4 @@
-﻿using ActionCalculator.Abstractions;
+using ActionCalculator.Abstractions;
 using ActionCalculator.Abstractions.Strategies;
 using ActionCalculator.Models;
 using ActionCalculator.Models.Actions;
@@ -51,19 +51,32 @@ namespace ActionCalculator.Strategies.Movement
                 successUsingBreakTackle = successIncludingBreakTackle - success;
             }
 
+            var pSteadyFooting = canUseSkill(CalculatorSkills.SteadyFooting, usedSkills) ? 1m / 6 : 0;
+
             if (canUseSkill(CalculatorSkills.Dodge, usedSkills))
             {
-                DodgeReroll(p, r, i, usedSkills | CalculatorSkills.Dodge, failure, success, successUsingBreakTackle, failureWithDivingTackle);
+                DodgeReroll(p, r, i, usedSkills | CalculatorSkills.Dodge, failure, success, successUsingBreakTackle, failureWithDivingTackle, pSteadyFooting, lonerSuccess);
                 return;
             }
 
             if (proHelper.UsePro(player, dodge, r, usedSkills, success, success))
             {
-                DodgeReroll(p * proSuccess, r, i, usedSkills | CalculatorSkills.Pro, failure, success, successUsingBreakTackle, failureWithDivingTackle);
+                DodgeReroll(p * proSuccess, r, i, usedSkills | CalculatorSkills.Pro, failure, success, successUsingBreakTackle, failureWithDivingTackle, pSteadyFooting, lonerSuccess);
+                ResolveSteadyFooting(p * (1m - proSuccess) * failure, r, i, usedSkills | CalculatorSkills.Pro, pSteadyFooting, lonerSuccess);
+                ResolveSteadyFooting(p * (1m - proSuccess) * failureWithDivingTackle, r, i, usedSkills | CalculatorSkills.Pro | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
                 return;
             }
-            
-            DodgeReroll(p * lonerSuccess, r - 1, i, usedSkills, failure, success, successUsingBreakTackle, failureWithDivingTackle);
+
+            DodgeReroll(p * lonerSuccess, r - 1, i, usedSkills, failure, success, successUsingBreakTackle, failureWithDivingTackle, pSteadyFooting, lonerSuccess);
+            ResolveSteadyFooting(p * (1m - lonerSuccess) * failure, r - 1, i, usedSkills, pSteadyFooting, lonerSuccess);
+            ResolveSteadyFooting(p * (1m - lonerSuccess) * failureWithDivingTackle, r - 1, i, usedSkills | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
+        }
+
+        private void ResolveSteadyFooting(decimal p, int r, int i, CalculatorSkills usedSkills, decimal pSteadyFooting, decimal lonerSuccess)
+        {
+            if (pSteadyFooting == 0) return;
+            calculator.Resolve(p * pSteadyFooting, r, i, usedSkills | CalculatorSkills.SteadyFooting);
+            calculator.Resolve(p * (1m - pSteadyFooting) * lonerSuccess * pSteadyFooting, r - 1, i, usedSkills | CalculatorSkills.SteadyFooting);
         }
 
         private static bool UseBreakTackleBeforeReroll(Func<CalculatorSkills, CalculatorSkills, bool> canUseSkill, Dodge dodge, int r, CalculatorSkills usedSkills) =>
@@ -84,10 +97,15 @@ namespace ActionCalculator.Strategies.Movement
         }
 
         private void DodgeReroll(decimal p, int r, int i, CalculatorSkills usedSkills,
-            decimal failure, decimal success, decimal useBreakTackle, decimal useDivingTackle)
+            decimal failure, decimal success, decimal useBreakTackle, decimal useDivingTackle,
+            decimal pSteadyFooting, decimal lonerSuccess)
         {
             DodgeReroll(p, r, i, usedSkills, failure, success, useDivingTackle);
             DodgeReroll(p, r, i, usedSkills | CalculatorSkills.BreakTackle, failure, useBreakTackle, useDivingTackle);
+            var terminalFailure = p * failure * (1m - success - useBreakTackle);
+            ResolveSteadyFooting(terminalFailure, r, i, usedSkills, pSteadyFooting, lonerSuccess);
+            var terminalFailureDt = p * useDivingTackle * (1m - success - useBreakTackle);
+            ResolveSteadyFooting(terminalFailureDt, r, i, usedSkills | CalculatorSkills.DivingTackle, pSteadyFooting, lonerSuccess);
         }
 
         private void DodgeReroll(decimal p, int r, int i, CalculatorSkills usedSkills, decimal failure, decimal success, decimal useDivingTackle)

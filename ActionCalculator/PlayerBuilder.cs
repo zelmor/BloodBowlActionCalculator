@@ -26,7 +26,7 @@ namespace ActionCalculator
                 bool illCarryYou = playerInput.EndsWith('^');
                 if (!illCarryYou && rule.StarPlayer == StarPlayer.Grak)
                 {
-                    starPlayerSkills = RemoveSkill(RemoveSkill(starPlayerSkills, "BT"), "D");
+                    starPlayerSkills = RemoveSkill(RemoveSkill(starPlayerSkills, "BT3"), "D");
                 }
 
                 starPlayerSkills = ReplaceDwarfenScourgeWithMightyBlow(starPlayerSkills, hasHatred);
