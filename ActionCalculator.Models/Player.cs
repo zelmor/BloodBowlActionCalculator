@@ -66,8 +66,8 @@ namespace ActionCalculator.Models
             skill switch
             {
                 CalculatorSkills.Loner => LonerValue.ToString(),
-                CalculatorSkills.DirtyPlayer => DirtyPlayerValue.ToString(),
-                CalculatorSkills.MightyBlow => MightyBlowValue.ToString(),
+                CalculatorSkills.DirtyPlayer => DirtyPlayerValue > 1 ? DirtyPlayerValue.ToString() : "",
+                CalculatorSkills.MightyBlow => MightyBlowValue > 1 ? MightyBlowValue.ToString() : "",
                 CalculatorSkills.BreakTackle => BreakTackleValue.ToString(),
                 _ => ""
             };

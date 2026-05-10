@@ -35,7 +35,7 @@
                                  ValueChanged="@LonerChanged" />
             </div>
         }
-        @if (CurrentPlayer.CanUseSkill(CalculatorSkills.MightyBlow, CalculatorSkills.None))
+        @if (CurrentPlayer.CanUseSkill(CalculatorSkills.MightyBlow, CalculatorSkills.None) && Season != "Season 3")
         {
             <div class="skill-value-row">
                 <span>Mighty Blow</span>
@@ -44,7 +44,7 @@
                                  ValueChanged="@MightyBlowChanged" />
             </div>
         }
-        @if (CurrentPlayer.CanUseSkill(CalculatorSkills.DirtyPlayer, CalculatorSkills.None))
+        @if (CurrentPlayer.CanUseSkill(CalculatorSkills.DirtyPlayer, CalculatorSkills.None) && Season != "Season 3")
         {
             <div class="skill-value-row">
                 <span>Dirty Player</span>

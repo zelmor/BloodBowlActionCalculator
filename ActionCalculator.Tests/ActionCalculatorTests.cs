@@ -108,8 +108,8 @@ namespace ActionCalculator.Tests
         //catch
         [InlineData("C:C3", 0, 0.88889)]
         //claw
-        [InlineData("CL,MB1:2D3,K8,J8", 0, 0.18229)]
-        [InlineData("CL,MB1:2D3,K9,J8", 0, 0.18229)]
+        [InlineData("CL,MB:2D3,K8,J8", 0, 0.18229)]
+        [InlineData("CL,MB:2D3,K9,J8", 0, 0.18229)]
         [InlineData("CL,SM:2D2,K9,J8", 0, 0.15271)]
         //dodge
         [InlineData("D:D2,D2", 1, 0.92593, 0.94522)]
@@ -133,10 +133,10 @@ namespace ActionCalculator.Tests
         [InlineData("N+2[:N+2,D3,U3]D3,U3", 0, 0.33333)]
         [InlineData("N+3", 0, 0.33333)]
         //fouling
-        [InlineData("DP2:F8", 0, 0.72222)]
-        [InlineData("DP2:F8,J8", 0, 0.42824)]
-        [InlineData("DP1:F8", 0, 0.58333)]
-        [InlineData("DP1:F8,J8", 0, 0.31250)]
+        [InlineData("DP2:F8~S2", 0, 0.72222)]
+        [InlineData("DP2:F8,J8~S2", 0, 0.42824)]
+        [InlineData("DP:F8", 0, 0.58333)]
+        [InlineData("DP:F8,J8", 0, 0.31250)]
         [InlineData("F8", 0, 0.41667)]
         [InlineData("F8,2", 0, 0.23148)]
         [InlineData("F8,A6,2", 0, 0.25077)]
@@ -146,7 +146,7 @@ namespace ActionCalculator.Tests
         [InlineData("SG:F8,2", 0, 0.28935)]
         //lone fouler
         [InlineData("LF:F8", 0, 0.65972)]
-        [InlineData("DP1,LF:F8", 0, 0.82639)]
+        [InlineData("DP,LF:F8", 0, 0.82639)]
         //unstoppable momentum
         [InlineData("UM:1D2", 1, 0.55556)]
         [InlineData("UM:2D3", 1, 0.87500)]
@@ -187,13 +187,13 @@ namespace ActionCalculator.Tests
         [InlineData("BI:M2;C,DC:C2", 0, 0.57135)]
         [InlineData("BI:M2;C,DC:C1", 1, 0.61852, 0.72161)]
         //mighty blow
-        [InlineData("MB1,R:K9", 0, 0.58333)]
-        [InlineData("MB1,R,S:K9", 0, 0.72222)]
-        [InlineData("MB2:2D3,K8", 0, 0.54167)]
-        [InlineData("MB2:2D3,K8,J8", 0, 0.32118)]
-        [InlineData("MB1:2D3,K8", 0, 0.43750)]
-        [InlineData("MB1:2D3,K8,J8", 0, 0.23438)]
-        [InlineData("CR,MB1,R,S:K9", 0, 0.83333)]
+        [InlineData("MB,R:K9", 0, 0.58333)]
+        [InlineData("MB,R,S:K9", 0, 0.72222)]
+        [InlineData("MB2:2D3,K8~S2", 0, 0.54167)]
+        [InlineData("MB2:2D3,K8,J8~S2", 0, 0.32118)]
+        [InlineData("MB:2D3,K8", 0, 0.43750)]
+        [InlineData("MB:2D3,K8,J8", 0, 0.23438)]
+        [InlineData("CR,MB,R,S:K9", 0, 0.83333)]
         //pass
         [InlineData("L4,TB:P3;C3~S2", 0, 0.59536)]
         [InlineData("L4,TB:P3;C3", 0, 0.45275)]
@@ -224,8 +224,8 @@ namespace ActionCalculator.Tests
         [InlineData("MD:Y2;{D2}U2", 0, 0.94522)]
         //old pro
         [InlineData("OP:2D2,K8", 0, 0.32922)]
-        [InlineData("MB1,OP:2D2,K8", 0, 0.40638)]
-        [InlineData("MB2,OP:2D2,K8", 0, 0.46468)]
+        [InlineData("MB,OP:2D2,K8", 0, 0.40638)]
+        [InlineData("MB2,OP:2D2,K8~S2", 0, 0.46468)]
         //stab
         [InlineData("T8", 0, 0.41667)]
         [InlineData("T8[:2D2]", 0, 0.74074)]
@@ -278,11 +278,13 @@ namespace ActionCalculator.Tests
         [InlineData("Gloriel:D3,P2;C2", 1, 0.72016, 0.84019)]
         [InlineData("Glotl:2D3,K8", 1, 0.43750, 0.49219)]
         [InlineData("Gobbo:D3,F8", 1, 0.37037)]
-        [InlineData("Grak:2D3,K8", 1, 0.43750, 0.49219)]
+        [InlineData("Grak:D4,2D3,K8", 1, 0.21875, 0.30078)]
+        [InlineData("Grak^:D4,2D3,K8", 1, 0.38889, 0.43750)]
         [InlineData("Grashnak:2D3,K8", 1, 0.43750, 0.49219)]
         [InlineData("Gretchen:D3,D3", 1, 0.74074, 0.76543)]
         [InlineData("Griff:R2,2D2,D3~S2", 1, 0.48011, 0.62236)]
         [InlineData("Grim:2D3,K8", 1, 0.43750, 0.49219)]
+        [InlineData("Grim*:2D3,K8", 1, 0.47801, 0.50231)]
         [InlineData("Grom:R2,D5,2D3,K8", 1, 0.21267, 0.29243)]
         [InlineData("Guffle:2,2", 2, 0.69444, 0.81019, 0.81501)]
         [InlineData("H'thark:R2,D5,2D3", 1, 0.42535, 0.53168)]
@@ -302,7 +304,8 @@ namespace ActionCalculator.Tests
         [InlineData("Luthor:2,2", 2, 0.69444, 0.81019, 0.81501)]
         [InlineData("Maple:2D3,K8", 1, 0.47801, 0.50231)]
         [InlineData("Max:2,2", 2, 0.69444, 0.81019, 0.81501)]
-        [InlineData("Morg:H5;G4", 1, 0.38889, 0.60185)]
+        [InlineData("Morg:2D2,H5;G4", 1, 0.21605, 0.38237)]
+        [InlineData("Morg*:2D2,H5;G4", 1, 0.24126, 0.40038)]
         [InlineData("Morg:H5;G4~S2", 1, 0.38889, 0.60185)]
         [InlineData("Nobbla:D3,2D2", 1, 0.49383, 0.60357)]
         [InlineData("Puggy:D3,2D2", 1, 0.49383, 0.64015)]
@@ -332,7 +335,8 @@ namespace ActionCalculator.Tests
         [InlineData("Wither:2,2", 2, 0.69444, 0.81019, 0.81501)]
         [InlineData("Zolcath:R2,2D3,K8", 1, 0.42535, 0.47852)]
         [InlineData("Zug:2D3,K8", 1, 0.54167, 0.60938)]
-        [InlineData("Zzharg:2,2", 1, 0.69444, 0.81019)]
+        [InlineData("Zzharg:2,2,U3", 1, 0.46296, 0.61728)]
+        [InlineData("Zzharg:2,2,U3~S2", 1, 0.61728, 0.72016)]
         public void StarPlayerTests(string calculationString, int rerolls, params double[] expected)
         {
             var calculation = _calculationBuilder.Build(calculationString, rerolls);
@@ -344,6 +348,30 @@ namespace ActionCalculator.Tests
             {
                 Assert.Equal((decimal)expected[i], result.Results[i], 5);
             }
+
+            Assert.Equal(calculationString, calculation.ToString());
+        }
+
+        [Theory]
+        //MB +2 invalid in Season 3 (default)
+        [InlineData("MB2:2D3,K8", 0, false)]
+        [InlineData("MB2:2D3,K8,J8", 0, false)]
+        //DP +2 invalid in Season 3 (default)
+        [InlineData("DP2:F8", 0, false)]
+        [InlineData("DP2:F8,J8", 0, false)]
+        //MB +2 valid in Season 2
+        [InlineData("MB2:2D3,K8~S2", 0, true)]
+        //DP +2 valid in Season 2
+        [InlineData("DP2:F8~S2", 0, true)]
+        //MB +1 always valid
+        [InlineData("MB:2D3,K8", 0, true)]
+        //DP +1 always valid
+        [InlineData("DP:F8", 0, true)]
+        public void ValidationTests(string calculationString, int rerolls, bool expectedValid)
+        {
+            var calculation = _calculationBuilder.Build(calculationString, rerolls);
+            var result = _calculator.Calculate(calculation);
+            Assert.Equal(expectedValid, result.IsValid);
         }
     }
 }

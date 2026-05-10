@@ -84,6 +84,14 @@ namespace ActionCalculator.Web.Client.Pages.Components
                 CurrentPlayer.BreakTackleValue = 2;
                 PlayerChanged();
             }
+
+            if (Season == "Season 3")
+            {
+                var changed = false;
+                if (CurrentPlayer.MightyBlowValue > 1) { CurrentPlayer.MightyBlowValue = 1; changed = true; }
+                if (CurrentPlayer.DirtyPlayerValue > 1) { CurrentPlayer.DirtyPlayerValue = 1; changed = true; }
+                if (changed) PlayerChanged();
+            }
         }
     }
 }
